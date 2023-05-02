@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Receitas Dinâmicas</title>
+</head>
+
+<body onload="preencheCatalogo()">
+    <h1>Catálogo Receitas</h1>
+
+    <main class="container-fluid bg-warning" style="height: 94.2vh;">
+        <div class="flex-wrap d-flex justify-content-around pt-4" id="pnlCatalogo">
+            
+        </div>
+    </main>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+    <script>
+        const receitas = [
+            {
+                titulo: "Carreteiro",
+                imagem: "https://raw.githubusercontent.com/Leandro-Lottermann/Receitas/main/img/carreteiro.jpg",
+                preparo: "Cozinhe a carne com a cebola, tomate e sal. Depois junte o arroz e continue a cozinhar",
+                ingredientes: ["Arroz", "Cebola", "Carne", "Tomate", "Sal"]
+            },
+            {
+                titulo: "Escondidinho de Frango",
+                imagem: "https://github.com/Leandro-Lottermann/Receitas/blob/main/img/escondidinho.jpg?raw=true",
+                preparo: "Cozinhe o frango já temperado e o desfie. Junte o purê de batata e leve ao forno para assar",
+                ingredientes: ["Frango", "Temperos", "Purê de Batata"]
+            },
+            {
+                titulo: "Macarronada",
+                imagem: "https://github.com/Leandro-Lottermann/Receitas/blob/main/img/macarronada.jpg?raw=true",
+                preparo: "Frite o bacon com a Cebola, junte o molho de tomate. Enquanto isso cozinhe o macarrão. No final junte tudo.",
+                ingredientes: ["Macarrão", "Cebola", "Molho de Tomate", "Bacon"]
+            },
+            {
+                titulo: "Carreteiro",
+                imagem: "https://raw.githubusercontent.com/Leandro-Lottermann/Receitas/main/img/carreteiro.jpg",
+                preparo: "Cozinhe a carne com a cebola, tomate e sal. Depois junte o arroz e continue a cozinhar",
+                ingredientes: ["Arroz", "Cebola", "Carne", "Tomate", "Sal"]
+            }
+           
+        ]
+
+        function getCard(receita) {
+            return `<div class="card" style="width: 300px;">
+                        <img src="${receita.imagem}" class="card-img-top">
+                        <div class="card-body">
+                            <h1 class="card-title">${receita.titulo}</h1>
+                            <div class="card-text">
+                                ${getListaIngredientes(receita)}
+                                <hr>
+                                <p>${receita.preparo}</p>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+
+        }
+
+        function getListaIngredientes(receita) {
+            let lista = "<ul>"; 
+            receita.ingredientes.forEach((ingrediente) => {
+                lista += `<li>${ingrediente}</li>`
+            })
+            return lista += "</ul>"
+            
+        }
+
+        function preencheCatalogo() {
+            const pnlCatalogo = document.getElementById('pnlCatalogo')
+            const listaCards = receitas.map((receita) => {
+                return getCard(receita)
+            }).reduce((cards, receita) => {
+                return cards += receita
+            })
+
+            pnlCatalogo.innerHTML = listaCards
+        }
+
+        
+
+        console.log(receitas)
+    </script>
+</body>
+
+</html>

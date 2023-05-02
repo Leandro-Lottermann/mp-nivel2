@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styleOrdenacao.css">
+    <title>Ordenando</title>
+</head>
+
+<body>
+    <section>
+        <div>
+            <input type="number" name="valor" id="valor">
+            <button type="submit" id="add" name="add" onclick="add()">Adicionar</button>
+        </div>
+        
+        <div>
+            <select name="" id="selecao">
+                <option value="bubble" selected>Bubble Sort</option>
+                <option value="selection">Selection Sort</option>
+                <option value="quick">Quick Sort</option>
+            </select>
+        
+            <button onclick="ordenar()">Ordenar</button>
+            <button onclick="misturar()">Misturar</button>
+
+        </div>
+    </section>
+    <hr>
+    <div class="container-lista">
+        <ul id="valores">
+
+
+        </ul>
+    </div>
+    
+
+
+    <script src="ordenando.js"></script>
+    <script>
+        function add() {
+            const valorDigitado = document.getElementById('valor');
+            if(valorDigitado.value.length === 0){
+                alert('Digite um número!')
+            } else {
+                const lista = document.getElementById('valores');
+                const node = document.createElement('li')
+                node.innerText = valorDigitado.value
+                lista.appendChild(node)
+                valorDigitado.value = ""
+                valorDigitado.focus()
+            }
+        }
+
+        function ordenar() {
+            const lista = document.getElementById('valores');
+            const array = [...lista.children].map(li => parseInt(li.innerText));
+            const seletor = document.getElementById('selecao');
+            
+            let listaOrdenada = []
+            switch (seletor.value) {
+                case 'bubble':
+                    listaOrdenada =  bubble_sort(array);
+                case 'selection':
+                    listaOrdenada = selection_sort(array);
+                case 'quick':
+                    listaOrdenada = quick_sort(array, 0, array.length - 1);
+            }
+            
+            lista.innerHTML = ''
+            
+            listaOrdenada.forEach((numero) => {
+                const node = document.createElement('li')
+                node.innerText = numero
+                lista.appendChild(node)
+                
+            })
+
+            
+        }
+
+        function misturar() {
+            const lista = document.getElementById('valores');
+            const array = [...lista.children].map(li => parseInt(li.innerText));
+
+            const listaEmbaralhada = shuffle(array, 3);
+
+            lista.innerHTML = ''
+            
+            listaEmbaralhada.forEach((numero) => {
+                const node = document.createElement('li')
+                node.innerText = numero
+                lista.appendChild(node)
+                
+            })
+        }
+
+    </script>
+</body>
+
+</html>
